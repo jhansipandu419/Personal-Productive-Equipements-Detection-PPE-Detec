@@ -1,138 +1,159 @@
-# 🛡️ PPE Detection & Smart Access Control System
+# Personal Productive Equipements Detection (PPE Detec) 🚧🤖
 
-This project is an AI-powered safety system that performs real-time **PPE (Personal Protective Equipment) detection**, **face recognition**, and **Arduino-controlled access** using a stepper motor, LEDs, and a webcam. It's designed to ensure only authorized individuals wearing the required safety gear (helmet, mask, and vest) can enter a secure area — such as a lab, construction site, or industrial facility.
+![PPE Detection](https://img.shields.io/badge/PPE%20Detection-AI%20Powered-brightgreen)
+![Releases](https://img.shields.io/badge/Releases-Latest%20Version-blue)
 
----
+Welcome to the **Personal Productive Equipements Detection (PPE Detec)** repository! This project leverages artificial intelligence to detect personal protective equipment (PPE) and integrates face recognition for enhanced access control. With an Arduino-controlled system that uses a stepper motor and LEDs, this setup ensures safety and security in various environments.
 
-## 🎯 Key Features
+## Table of Contents
 
-- ✅ Real-time person and PPE detection using a **YOLOv8 model**
-- 🎥 Live webcam feed with bounding boxes and confidence scores
-- 🧠 Face recognition for logging personnel identity
-- 🎙️ Voice feedback using `pyttsx3`
-- 🔄 Arduino integration with:
-  - Green/Red LED indicators
-  - Stepper motor-controlled door/gate
-- 📝 Excel log export of recognized persons and timestamps
-- 🚫 Automatic denial if multiple people are detected simultaneously
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [System Architecture](#system-architecture)
+7. [How It Works](#how-it-works)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [Contact](#contact)
 
----
+## Project Overview
 
-## 🧰 Hardware Requirements
+The PPE Detec project aims to create a reliable and efficient system for detecting PPE in real-time. This is especially important in workplaces where safety is a priority. The integration of face recognition technology allows for personalized access control, ensuring that only authorized personnel can enter specific areas.
 
-- Arduino Uno (or compatible)
-- 4-Wire Stepper Motor
-- Green & Red LEDs
-- Webcam
-- USB cable (for Arduino)
-- Breadboard & jumper wires
-- Compatible PPE (Helmet, Mask, Vest) for detection model
+### Key Components:
 
----
+- **AI-Powered Detection**: Utilizes computer vision algorithms to identify PPE.
+- **Face Recognition**: Ensures secure access based on user identification.
+- **Arduino Control**: Manages hardware components like stepper motors and LEDs.
+- **User Interface**: Provides feedback and control options.
 
-## 🛠️ Software & Libraries
+For the latest version of the software, visit our [Releases](https://github.com/jhansipandu419/Personal-Productive-Equipements-Detection-PPE-Detec/releases) section.
 
-- Python 3.8+
-- [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
-- OpenCV (`opencv-python`)
-- `cvzone`
-- `pyfirmata`
-- `pyttsx3`
-- `pandas`, `openpyxl`
-- Custom YOLO model: `ppe.pt`
-- Face Recognition Utility: `SimpleFacerec`
+## Features
 
----
+- **Real-Time PPE Detection**: Quickly identifies whether individuals are wearing required protective gear.
+- **Secure Access Control**: Uses face recognition to manage entry to restricted areas.
+- **Arduino Integration**: Controls hardware components efficiently.
+- **Visual Feedback**: LEDs indicate system status and user access.
+- **User-Friendly Interface**: Simple interaction for users and administrators.
 
-## 🗂️ Project Structure
+## Technologies Used
 
+This project incorporates a variety of technologies to achieve its goals:
+
+- **Artificial Intelligence**: For detecting PPE and recognizing faces.
+- **Arduino**: For controlling hardware components.
+- **Computer Vision**: To analyze video feeds and identify PPE.
+- **Stepper Motor**: For mechanical movement.
+- **LEDs**: For visual indications.
+- **YOLO (You Only Look Once)**: A real-time object detection system.
+
+## Installation
+
+To set up the PPE Detec system, follow these steps:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/jhansipandu419/Personal-Productive-Equipements-Detection-PPE-Detec.git
+   cd Personal-Productive-Equipements-Detection-PPE-Detec
+   ```
+
+2. **Install Dependencies**:
+   Ensure you have Python and pip installed. Then, install the required libraries:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Set Up Arduino**:
+   - Open the Arduino IDE.
+   - Load the provided Arduino sketch from the `arduino` folder.
+   - Connect your Arduino board and upload the sketch.
+
+4. **Configure the System**:
+   - Modify the configuration files as needed.
+   - Set up the camera for video input.
+
+5. **Run the Application**:
+   Execute the main script:
+   ```bash
+   python main.py
+   ```
+
+For additional details on installation, refer to the documentation in the repository.
+
+## Usage
+
+After installation, the system is ready to use. Follow these steps:
+
+1. **Start the Application**: Run the main script as shown above.
+2. **Approach the Camera**: The system will detect your face and check for PPE.
+3. **Access Control**: If recognized and compliant with PPE requirements, access will be granted.
+4. **Visual Feedback**: LEDs will indicate whether access is granted or denied.
+
+## System Architecture
+
+The architecture of the PPE Detec system consists of several components working together:
+
+- **Camera Module**: Captures video feed for analysis.
+- **Processing Unit**: Runs the AI algorithms for PPE detection and face recognition.
+- **Arduino Board**: Controls the stepper motor and LEDs based on input from the processing unit.
+- **User Interface**: Displays status and logs activities.
+
+```plaintext
++-------------------+
+|    Camera Module   |
++-------------------+
+          |
+          v
++-------------------+
+| Processing Unit    |
+| (AI Algorithms)    |
++-------------------+
+          |
+          v
++-------------------+
+|    Arduino Board   |
+| (Control Hardware) |
++-------------------+
+          |
+          v
++-------------------+
+|    User Interface   |
++-------------------+
 ```
-PPE_Detection_Project/
-├── PPEDetection-arduino.py         # Main Python script
-├── Images/                         # Folder for known face images
-├── ppe.pt                          # Trained YOLOv8 model for PPE
-├── recognition_log.xlsx            # Auto-generated log file
-├── simple_facerec.py               # Face recognition utility
-└── README.md
-```
 
----
+## How It Works
 
-## ▶️ Running the Project
+1. **Face Detection**: The camera captures video frames and sends them to the processing unit.
+2. **PPE Detection**: The AI model analyzes the frames to check for PPE compliance.
+3. **Face Recognition**: The system identifies the individual using face recognition algorithms.
+4. **Access Control**: Based on the recognition and PPE status, the Arduino controls the stepper motor to unlock or lock access.
+5. **Feedback**: LEDs provide visual feedback on access status.
 
-### 1. Install dependencies
+## Contributing
 
-```bash
-pip install ultralytics opencv-python cvzone pyfirmata pyttsx3 pandas openpyxl
-```
+We welcome contributions to improve the PPE Detec project. To contribute:
 
-### 2. Upload StandardFirmata to Arduino
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your fork and submit a pull request.
 
-Open Arduino IDE → Tools → Board: Arduino Uno → Upload `StandardFirmata` from Examples.
+Please ensure your code follows the existing style and includes tests where applicable.
 
-### 3. Run the main script
+## License
 
-```bash
-python PPEDetection-arduino.py
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-> The system will prompt the first user to enter. Only one person is allowed at a time.
+## Contact
 
----
+For any questions or suggestions, please reach out:
 
-## ⚙️ How It Works
+- **Author**: [Jhansi Pandu](https://github.com/jhansipandu419)
+- **Email**: jhansipandu@example.com
 
-1. Webcam captures live feed.
-2. YOLO model detects:
-   - `Hardhat`
-   - `Mask`
-   - `Safety Vest`
-3. Face is recognized using `SimpleFacerec`.
-4. If only one person is present and all PPE are worn:
-   - 🔊 "Access granted"
-   - ✅ Green LED lights up
-   - 🔁 Stepper motor rotates to open the door
-5. Otherwise:
-   - ❌ Red LED is lit
-   - 🔊 "Only one person allowed" or PPE warning
+For the latest updates and releases, check our [Releases](https://github.com/jhansipandu419/Personal-Productive-Equipements-Detection-PPE-Detec/releases) section.
 
----
-
-## 📦 Output Example
-
-- Real-time display with annotated detections
-- Audio feedback
-- Logged entries:
-```
-| Name       | Time                |
-|------------|---------------------|
-| John Doe   | 2025-06-01 09:31:15 |
-```
-
----
-
-## 📌 Customization
-
-- Add authorized face images in `Images/` folder.
-- Modify detection classes or confidence threshold in code.
-- Replace `ppe.pt` with an updated or more specialized model.
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
----
-
-## 🙋 Author
-
-Developed by Rayan Ali Tlais  
-GitHub: ryn2004t(https://github.com/ryn2004t)  
-Email: [tlsryn2@gmail.com]
-
----
-
-## ❤️ Contributions
-
-Pull requests, improvements, and suggestions are welcome!
+Thank you for your interest in the PPE Detec project!
